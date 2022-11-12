@@ -1,0 +1,12 @@
+﻿global using FirebaseAdmin;
+global using Google.Apis.Auth.OAuth2;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
+global using FirebaseAdmin.Auth;
+global using System.ComponentModel.DataAnnotations;
+global using Microsoft.AspNetCore.Diagnostics;
+global using System.Net;
+global using PaySkyTaskAPI.Models;
+global using PaySkyTaskAPI.Services;
+global using PaySkyTaskAPI.Enums;
