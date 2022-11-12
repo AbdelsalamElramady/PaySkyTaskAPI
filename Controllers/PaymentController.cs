@@ -2,7 +2,8 @@
 
 namespace PaySkyTaskAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/payment")]
     [ApiController]
     public class PaymentController : ControllerBase
     {

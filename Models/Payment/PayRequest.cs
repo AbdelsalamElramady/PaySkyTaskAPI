@@ -5,18 +5,18 @@ namespace PaySkyTaskAPI.Models.Payment
     public class PayRequest
     {
         [Required]
-        public string? ProcessingCode { get; set; }
+        public int? ProcessingCode { get; set; }
         [Required]
-        public string? SystemTraceNr { get; set; }
+        public int? SystemTraceNr { get; set; }
         [Required]
-        public string? FunctionCode { get; set; }
+        public int? FunctionCode { get; set; }
         [Required]
-        public string? CardNo { get; set; }
+        public long? CardNo { get; set; }
         [Required]
         public string? CardHolder { get; set; }
         [Required]
-        public string? AmountTrxn { get; set; }
+        public int? AmountTrxn { get; set; }
         [Required]
-        public string? CurrencyCode { get; set; }
+        public int? CurrencyCode { get; set; }
     }
 }
