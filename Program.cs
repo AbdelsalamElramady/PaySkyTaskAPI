@@ -6,6 +6,8 @@ using PaySkyTaskAPI.Middlewares;
 using PaySkyTaskAPI.Models.Payment;
 using System.Net;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +17,23 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<PaymentGatewayService>();
+
+var allowedSpecificOrigins = new string[]
+{
+    "http://localhost:4200",
+};
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+    builder =>
+    {
+        builder.WithOrigins(allowedSpecificOrigins)
+        .AllowCredentials()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddAuthorization().AddSingleton<IAuthorizationMiddlewareResultHandler, PaySkyTaskAuthorizationMiddlewareResultHandler>();
 
@@ -41,10 +60,12 @@ app.UseExceptionHandler(errorApp =>
         .Get<IExceptionHandlerPathFeature>()?
         .Error;
 
-        context.Response.StatusCode = (int)HttpStatusCode.OK;
+        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         await context.Response.WriteAsJsonAsync(new PayResponse(ResponseMessage.Fail + ": " + exception?.Message, ResponseCode.Fail));
     });
 });
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
